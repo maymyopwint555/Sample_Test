@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,26 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => [
+                'required',
+                'string'
+            ],
+            "code" => [
+                'required',
+                'unique:products,code,' . $this->product->id,
+            ],
+            "qty" => [
+                'required',
+            ],
+            "price" => [
+                'required',
+            ],
+            "category_id" => [
+                'required',
+            ],
+            "brand_id" => [
+                'required',
+            ],
         ];
     }
 }

@@ -7,9 +7,23 @@
                 <div class="col-md-6">
                     <h5>Category Lists</h5>
                 </div>
-                <div class="col-md-6 d-flex justify-content-end">
-                    <a class="btn btn-sm btn-outline-primary" href="{{ route('categories.create') }}">
-                        {{ trans('global.add') }} <i class="fas fa-plus mr-2"></i>
+                <div class="col-md-6 d-flex justify-content-end align-items-center">
+                    <form action="{{ route('categories.index') }}" class="d-flex me-2">
+                        <input 
+                            class="form-control me-2" 
+                            name="search" 
+                            type="search" 
+                            placeholder="Search Name" 
+                            aria-label="Search" 
+                            value="{{ request('search') }}"
+                        >
+                        <button class="btn btn-outline-primary" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+
+                    <a href="{{ route('categories.create') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-plus me-1"></i> {{ trans('global.add') }}
                     </a>
                 </div>
             </div>
@@ -17,7 +31,7 @@
         <div class="card-body">
             <table class="table table-bordered table-striped">
                 <thead>
-                    <th>{{ trans('cruds.category.fields.id') }}</th>
+                    <th>{{ trans('cruds.category.fields.no') }}</th>
                     <th>{{ trans('cruds.category.fields.name') }}</th>
                     <th>Action</th>
                 </thead>

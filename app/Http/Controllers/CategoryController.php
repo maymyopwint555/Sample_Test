@@ -17,9 +17,14 @@ class CategoryController extends Controller
         $this->categoryService = $categoryService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('id','desc')->paginate(10);
+        $data = Category::query();
+        $name = $request->search;
+        if (!empty($name)) {
+            $data = $data->where('name', 'LIKE', '%' . $name . '%');
+        }
+        $categories = $data->orderBy('id','desc')->paginate(10);
         $firstItem = $categories->firstItem();
         return view('categories.index',compact('categories','firstItem'));
     }

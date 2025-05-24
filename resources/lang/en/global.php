@@ -7,6 +7,7 @@ return [
     'update' => 'Update',
     'back_to_list' => 'Back to list',
     'save' => 'Save',
+    'update' => 'Update',
     'cancel' => 'Cancel',
     'show' => 'Show',
     'view' => 'View',

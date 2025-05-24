@@ -19,7 +19,7 @@
                 </div>
                 <div class="form-group mt-3">
                     <button class="btn btn-outline-warning" type="submit">
-                        {{ trans('global.save') }}
+                        {{ trans('global.update') }}
                     </button>
                     <a href="{{ route('categories.index') }}" class="btn btn-outline-secondary me-3">
                         {{ trans('global.cancel') }}
