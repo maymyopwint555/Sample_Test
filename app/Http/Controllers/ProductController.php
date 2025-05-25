@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Services\ProductService;
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 
 class ProductController extends Controller
 {
+    use MediaUploadingTrait;
     protected $productService;
 
     public function __construct(ProductService $productService)
@@ -62,8 +64,7 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        dd($request->all());
-        $products = $this->productService->createProduct($request);
+        $product = $this->productService->createProduct($request);
         return redirect()->route('products.index');
     }
 

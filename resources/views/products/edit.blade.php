@@ -87,6 +87,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mt-2">
+                    <div class="form-group col-md-12">
+                        <label for="product_photo">Image</label>
+                        <div class="needsclick dropzone {{ $errors->has('product_photo') ? 'is-invalid' : '' }}"
+                            id="photo-dropzone">
+                        </div>
+                        @if ($errors->has('product_photo'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('product_photo') }}
+                            </div>
+                        @endif
+                        <span class="help-block"></span>
+                    </div>
+                </div>
                  <div class="row mt-3">
                     <div class="col-md-12 ">
                         <div class="form-group">
@@ -113,4 +127,88 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+    var uploadedImagesMap = {}
+
+    function dropzoneCall(inputName, maxFile) {
+        return {
+            url: '{{ route('products.storeMedia') }}',
+            maxFiles: maxFile,
+            maxFilesize: 10, // MB
+            acceptedFiles: '.jpeg,.jpg,.png,.gif',
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            params: {
+                size: 10,
+                width: 4096,
+                height: 4096
+            },
+            success: function(file, response) {
+                if (inputName == 'photo') {
+                    $('form').append('<input type="hidden" name="' + inputName + '[]" value="' + response.name +
+                        '">')
+                } else {
+                    $('form').append('<input type="hidden" name="' + inputName + '" value="' + response.name + '">')
+                }
+                uploadedImagesMap[file.name] = response.name
+            },
+            removedfile: function(file) {
+                console.log(file)
+                file.previewElement.remove()
+                var name = ''
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name
+                } else {
+                    name = uploadedImagesMap[file.name]
+                }
+                if (inputName == 'photo') {
+                    $('form').find('input[name="' + inputName + '[]"][value="' + name + '"]').remove()
+                } else {
+                    $('form').find('input[name="' + inputName + '"]').remove()
+                }
+
+            },
+            init: function() {
+                this.on("maxfilesexceeded", function(file) {
+                    this.removeFile(file);
+                });
+                @if (isset($product) && $product->photo)
+                            var files = {!! json_encode($product->photo) !!}
+                            for (var i in files) {
+                                // console.log("files");
+                                var file = files[i]
+                                console.log(file);
+                                this.options.addedfile.call(this, file)
+                                this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
+                                file.previewElement.classList.add('dz-complete')
+                                $('form').append('<input type="hidden" name="photo[]" value="' + file
+                                    .file_name + '">')
+                            }
+                @endif
+            },
+            error: function(file, response) {
+                if ($.type(response) === 'string') {
+                    var message = response //dropzone sends it's own error messages in string
+                } else {
+                    var message = response.errors.file
+                }
+                file.previewElement.classList.add('dz-error')
+                _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                _results = []
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i]
+                    _results.push(node.textContent = message)
+                }
+
+                return _results
+            }
+        }
+    }
+
+    Dropzone.options.photoDropzone = dropzoneCall('photo', 1);
+</script>
 @endsection

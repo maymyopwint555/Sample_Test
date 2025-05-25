@@ -55,6 +55,7 @@
                     <th>{{ trans('cruds.product.fields.category') }}</th>
                     <th>{{ trans('cruds.product.fields.brand') }}</th>
                     <th>{{ trans('cruds.product.fields.description') }}</th>
+                    <th>Image</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -68,6 +69,7 @@
                             <td>{{$product->category?->name ?? ''}}</td>
                             <td>{{$product->brand?->name ?? ''}}</td>
                             <td>{{$product->description ?? ''}}</td>
+                            <td><img src="{{ asset($product->getFirstMediaUrl('photo')) }}" width="50px" height="50px" /></td>
                             <td>
                                 <div class="d-flex align-items-center">
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-outline-primary me-2">

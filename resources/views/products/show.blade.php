@@ -38,6 +38,15 @@
                         <td>{{$product->brand?->name ?? ''}}</td>
                     </tr>
                     <tr>
+                        <th>
+                            Image
+                        </th>
+                        <td>
+                            <img src="{{ asset($product->getFirstMediaUrl('photo')) }}" 
+                            width="150px" height="150px" />
+                        </td>
+                    </tr>
+                    <tr>
                         <th>{{ trans('cruds.product.fields.description') }}</th>
                         <td>{{$product->description ?? ''}}</td>
                     </tr>

@@ -30,4 +30,5 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function () 
 
     // Product
     Route::resource('products', 'ProductController');
+    Route::post('products/media', 'ProductController@storeMedia')->name('products.storeMedia');
 });
