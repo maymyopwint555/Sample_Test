@@ -31,4 +31,8 @@ Route::middleware('auth')->namespace('App\Http\Controllers')->group(function () 
     // Product
     Route::resource('products', 'ProductController');
     Route::post('products/media', 'ProductController@storeMedia')->name('products.storeMedia');
+    Route::post('products/qty/update', 'ProductController@updateQty')->name('products.qty.update');
+
+    // Stock
+    Route::get('/stocks','StockController@index')->name('stocks.index');
 });

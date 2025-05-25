@@ -14,7 +14,8 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     {{-- bootstrap --}}
-    <link rel="stylesheet" href="{{asset('vendor/bootstrap/bootstrap.min.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('vendor/bootstrap/bootstrap.min.css')}}"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     {{-- fontawesome and boxicon --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -92,12 +93,21 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item mx-3">
                             <a href="{{ route('products.index') }}"
                                 class="nav-link {{ request()->is('products') || request()->is('products/*') ? 'active' : '' }}">
 
                                 <p>
                                     Product
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('stocks.index') }}"
+                                class="nav-link {{ request()->is('stocks') || request()->is('stocks/*') ? 'active' : '' }}">
+
+                                <p>
+                                    Stock
                                 </p>
                             </a>
                         </li>
@@ -136,7 +146,8 @@
     </div>
     {{-- bootstrap --}}
     <script src="{{ asset('vendor/js/jquery.min.js')}}"></script>
-    <script src="{{ asset('vendor/bootstrap/bootstrap.bundle.js')}}"></script>
+    {{-- <script src="{{ asset('vendor/bootstrap/bootstrap.bundle.js')}}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.0/dist/boxicons.min.js" integrity="sha512-y8/3lysXD6CUJkBj4RZM7o9U0t35voPBOSRHLvlUZ2zmU+NLQhezEpe/pMeFxfpRJY7RmlTv67DYhphyiyxBRA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>

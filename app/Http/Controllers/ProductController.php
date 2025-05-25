@@ -106,4 +106,19 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index');
     }
+
+    public function updateQty(Request $request)
+    {
+        $product = Product::findOrFail($request->product_id);
+        if($request->savebtn == "add")
+        {
+            $product->qty += $request->qty;
+        }else{
+            $product->qty -= $request->qty;
+        }
+
+        $product->save();
+
+        return back();
+    }
 }
